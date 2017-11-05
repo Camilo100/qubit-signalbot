@@ -32,7 +32,8 @@ cd /qubit-signalbot
 git clone https://github.com/Camilo100/qubit-signalbot
 cd /qubit-signalbot
 
-
+#Tkinter (¿sirve?)
+sudo apt-get install python-tk
 
 #Drive
 sudo apt install gnome-control-center gnome-online-accounts
@@ -51,6 +52,8 @@ sudo gdebi google-chrome-stable_current_amd64.deb
 pip install pandas
 pip install pandas-datareader
 pip install matplotlib
+pip install quandl
+pip install numpy
  
 #Sublime text 3
 sudo add-apt-repository ppa:webupd8team/sublime-text-3
