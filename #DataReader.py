@@ -2,35 +2,71 @@
 
 import pandas_datareader as pdr
 import datetime 
-import pandas
-
 import pandas as pd
-aapl.to_csv('data/aapl_ohlc.csv')
-df = pd.read_csv('data/aapl_ohlc.csv', header=0, index_col='Date', parse_dates=True)
+import matplotlib.pyplot as plt
+import requests
+import json
+import urllib2
 
-aapl = pdr.get_data_yahoo('AAPL', 
+import numpy as np
+
+
+#https://www.datacamp.com/community/tutorials/pandas-tutorial-dataframe-python#question1
+
+#neo.to_csv('data/neo_ohlc.csv')
+#df = pd.read_csv('data/neo_ohlc.csv', header=0, index_col='Date', parse_dates=True)
+"""
+neo = pdr.get_data_yahoo('neo', 
                           start=datetime.datetime(2006, 10, 1), 
                           end=datetime.datetime(2012, 1, 1))
+"""
+market = "NEO"
+url = "https://bittrex.com/Api/v2.0/pub/market/GetTicks?marketName=BTC-"+market+"&tickInterval=day"
+raw_json = requests.get(url).text
+json_dict = json.loads(raw_json)
+neo = pd.DataFrame(json_dict['result'])
+
+neo.set_index('T', inplace=True)
+
+neo.index = neo.index.to_datetime()
 
 
-# Return first rows of `aapl`
-aapl.head()
 
-# Return last rows of `aapl`
-aapl.tail()
+"""
+#print(neo.loc[pd.Timestamp('2006-11-01'):pd.Timestamp('2006-12-31')].head())
 
-# Describe `aapl`
-aapl.describe()
+# Plot the closing prices for `neo`
+neo['C'].plot(grid=True)
+#plt.show()
 
-# Inspect the index 
-print aapl.index
+print neo.describe()
 
-# Inspect the columns
-print aapl.columns
+print neo.head()
+
+print neo.tail()
 
 # Select only the last 10 observations of `Close`
-ts = aapl['Close'][-10:]
+ts = neo['C'][-10:]
 
 # Check the type of `ts` 
 print type(ts)
+"""
 
+# Assign `Adj Close` to `daily_close`
+daily_close = neo['C']
+
+# Daily returns
+# Daily returns
+daily_pct_change = daily_close.pct_change()
+
+# Replace NA values with 0
+daily_pct_change.fillna(0, inplace=True)
+
+# Inspect daily returns
+print(daily_pct_change)
+
+# Daily log returns
+daily_log_returns = np.log(daily_close.pct_change()+1)
+
+# Print daily log returns
+print(daily_log_returns)
