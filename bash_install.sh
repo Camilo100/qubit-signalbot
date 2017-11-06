@@ -54,6 +54,7 @@ pip install pandas-datareader
 pip install matplotlib
 pip install quandl
 pip install numpy
+pip install python-telegram-bot
  
 #Sublime text 3
 sudo add-apt-repository ppa:webupd8team/sublime-text-3

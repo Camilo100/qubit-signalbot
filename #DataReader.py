@@ -15,26 +15,38 @@ import numpy as np
 
 #neo.to_csv('data/neo_ohlc.csv')
 #df = pd.read_csv('data/neo_ohlc.csv', header=0, index_col='Date', parse_dates=True)
+
+
+
+def data(ticker):
+	for market in ticker:
+		url = "https://bittrex.com/Api/v2.0/pub/market/GetTicks?marketName=BTC-"+market+"&tickInterval=day"
+		raw_json = requests.get(url).text
+		json_dict = json.loads(raw_json)
+		omg = pd.DataFrame(json_dict['result'])
+	return (omg)
+		#datas = map(pd.DataFrame(json_dict['result']), i)
+	#return(pd.concat(datas, keys=ticker, names=['Ticker', 'Date']))
+
+
+
+
+
+tickers = ["NEO", "OMG"]
+
+
+lis = data(tickers) 
+
+print lis
+
+#neo.set_index('T', inplace=True)
+
+#neo.index = pd.to_datetime(neo.index)
+
+
+
+#print(neo.loc[('2017-10-01'):('2017-11-01')])
 """
-neo = pdr.get_data_yahoo('neo', 
-                          start=datetime.datetime(2006, 10, 1), 
-                          end=datetime.datetime(2012, 1, 1))
-"""
-market = "NEO"
-url = "https://bittrex.com/Api/v2.0/pub/market/GetTicks?marketName=BTC-"+market+"&tickInterval=day"
-raw_json = requests.get(url).text
-json_dict = json.loads(raw_json)
-neo = pd.DataFrame(json_dict['result'])
-
-neo.set_index('T', inplace=True)
-
-neo.index = neo.index.to_datetime()
-
-
-
-"""
-#print(neo.loc[pd.Timestamp('2006-11-01'):pd.Timestamp('2006-12-31')].head())
-
 # Plot the closing prices for `neo`
 neo['C'].plot(grid=True)
 #plt.show()
@@ -50,7 +62,6 @@ ts = neo['C'][-10:]
 
 # Check the type of `ts` 
 print type(ts)
-"""
 
 # Assign `Adj Close` to `daily_close`
 daily_close = neo['C']
@@ -63,10 +74,12 @@ daily_pct_change = daily_close.pct_change()
 daily_pct_change.fillna(0, inplace=True)
 
 # Inspect daily returns
-print(daily_pct_change)
+#print(daily_pct_change)
 
 # Daily log returns
 daily_log_returns = np.log(daily_close.pct_change()+1)
 
 # Print daily log returns
-print(daily_log_returns)
+#print(daily_log_returns)
+
+"""
