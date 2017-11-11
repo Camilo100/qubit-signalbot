@@ -55,8 +55,17 @@ pip install matplotlib
 pip install quandl
 pip install numpy
 pip install python-telegram-bot
- 
+pip install scipy
+pip install -U scikit-learn 
+pip install sklearn-pandas #https://github.com/scikit-learn-contrib/sklearn-pandas
+pip install -U statsmodels
+
 #Sublime text 3
 sudo add-apt-repository ppa:webupd8team/sublime-text-3
 sudo apt-get update
 sudo apt-get install sublime-text-installer
+
+#Atom
+sudo add-apt-repository ppa:webupd8team/atom
+sudo apt-get update
+sudo apt install atom
