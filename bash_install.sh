@@ -59,6 +59,9 @@ pip install scipy
 pip install -U scikit-learn 
 pip install sklearn-pandas #https://github.com/scikit-learn-contrib/sklearn-pandas
 pip install -U statsmodels
+#pip install bitex   #https://github.com/nlsdfnbch/bitex
+
+
 
 #Sublime text 3
 sudo add-apt-repository ppa:webupd8team/sublime-text-3

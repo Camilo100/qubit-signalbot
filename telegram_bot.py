@@ -21,7 +21,7 @@ class telegram_bot(object):
 		self.id = chat_id
 
 	def start(self, bot, update):
-		self.reply1 = "Hola, todavia no se hacer mucho (ni siquiera se que todavia va con tilde"
+		self.reply1 = "Hola, todavia no se hacer mucho (ni siquiera se que todavia va con tilde)"
 		bot.send_message(chat_id=update.message.chat_id, text=reply1)
 
 	def info(self, bot, update):
@@ -31,10 +31,11 @@ class telegram_bot(object):
 	def echo(self, bot, update):
 		bot.send_message(chat_id=update.message.chat_id, text='No se responder, sorry bro')
 
-	def send(self, data):
+	def send_text(self, data):
 		self.updater.bot.send_message(chat_id= self.id, text=data, parse_mode='html') #mi id
 
-
+	def send_photo(self, addrs):
+		self.updater.bot.send_photo(chat_id=self.id, photo=open(addrs, 'rb')) #mi id
 
 
 
