@@ -21,6 +21,7 @@ pares = [
 
 
 class BitfinexClient(object):
+    #read onlys de mi cuenta
     BASE_URL = "https://api.bitfinex.com/"
     KEY="0GPBbZIKwT3Lj9ZZOWbbE39ikVFDVx1yPThlzOX1jsl"
     SECRET="cDNVX0Cpslmb2173hv8v06Jio5Lrqfo1EeQ2tXXmf4U"
