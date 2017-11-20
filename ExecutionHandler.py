@@ -226,7 +226,7 @@ class BitfinexClient(ExecutionHandler):
 
 #https://github.com/ppm0/bittrex3/blob/master/bittrex3/bittrex3.py
 
-class BittrexClient():
+class BittrexClient(ExecutionHandler):
 
    
     market_set = ['getopenorders', 'cancel', 'sellmarket', 'selllimit', 'buymarket', 'buylimit']
@@ -337,9 +337,9 @@ rex=BittrexClient()
 print(rex.deposit_address('BTC'))
 print (rex.buy_limit('BTC-LTC',0.001, 500))
 
-client = BitfinexClient()
-print client.withdrawal_fees()
-print client.trading_fees()
-print client.deposit_address()
-print client.new_order('XMRUSD',0.01,1,'buy','exchange market')
-print client.trade_hist('XMRBTC',"10.8.2017 11:05:02")
+finex = BitfinexClient()
+print finex.withdrawal_fees()
+print finex.trading_fees()
+print finex.deposit_address()
+print finex.new_order('XMRUSD',0.01,1,'buy','exchange market')
+print finex.trade_hist('XMRBTC',"10.8.2017 11:05:02")

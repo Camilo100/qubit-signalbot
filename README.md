@@ -44,6 +44,29 @@ BTCUSD = bitfinex.get_lastest(ticker=ticker, timeframe="15m")
 
 ```
 
+### Como usar ExecutionHandler
+
+```python
+
+rex=BittrexClient()
+finex=BitfinexClient()
+
+#Las ordenes en cada exchange piden distintos argumentos y no estan todas las funciones en ambos.Fix en proximo commit
+
+''' 
+Finex:
+balances,trading_fees, withdrawal_fees, deposit_address, trade_hist, new_order, cancel_order, cancel_all_orders, replace_order, order_status, active_orders
+'''
+
+''' Bittrex: 
+buy_limit,sell_limit, cancel_order, open_orders, balances, balance_moneda, deposit_address, withdraw, get_order, get_order_history,
+get_withdrawal_history, get_deposit_history
+```
+#EJ: si se puede enviar la order (saldo suficiente, montos permitidos,etc) devuelve un JSON con el id de la orden,simbolo,mercado,etc.
+#Si no imprime el codigo de error y la aclaracion
+
+orden=finex.new_order('XMRUSD',0.01,1,'buy','exchange market')
+
 
 ### Como usar RSI strategy (BETA)
 Esta estrategia (por el momento) envia señales usando el telegram bot, cuando el RSI de un ticker (o una lista de ellos) llega a un nivel deseado. Hay que inicializar el data handler y el telegram bot. 
