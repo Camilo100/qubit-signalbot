@@ -17,16 +17,40 @@ bot.send_photo(photo_addrs)
 ```
 
 
-### Como usar metodo rest bitfinex
+### Como usar metodo rest publico de bitfinex
 
 ```python
 
-tickers = "tBTCUSD"
+ticker = "tBTCUSD"
 bitfinex = bitfinex_data()
 
 """
 Trae un pandas con las ultimas 10 velas de la forma OPEN,CLOSE,HIGH,LOW,VOLUME
 """
-BTCUSD = bitfinex.get_historical_server(ticker="tBTCUSD", timeframe="15m", limit='10') 
+BTCUSD = bitfinex.get_historical_server(ticker=ticker, timeframe="15m", limit='10')
+
+"""
+Ultima vela
+"""
+BTCUSD = bitfinex.get_lastest(ticker=ticker, timeframe="15m")
 
 ```
+
+
+### Como usar RSI strategy (BETA)
+Esta estrategia (por el momento) envia señales usando el telegram bot, cuando el RSI de un ticker (o una lista de ellos) llega a un nivel deseado. 
+
+```python
+
+token = '482503768:AAGQufAjZF4zj9cnnqLcNxrgXzc1BUURNak'
+chat_id = '413830610'
+bot = tel.telegram_bot(token, chat_id) #crea el bot de telegram con tu token
+bitfinex = data.bitfinex_data()
+tickers = 'tBTCUSD'
+RSI = simple_RSI(bitfinex, bot, tickers, 15, 75)
+
+```
+
+
+
+#####(https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)

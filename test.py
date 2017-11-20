@@ -7,6 +7,12 @@ import telegram_bot as tel
 import talib
 
 
+
+
+
+
+
+
 """
 
 tickers = ["BTC-NEO", "BTC-OMG", "BTC-ADX", "BTC-ARK"]

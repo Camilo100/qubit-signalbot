@@ -13,19 +13,27 @@ import telegram_bot as tel
 
 
 class simple_RSI(object):
-	def __init__(self, data, telegram, tickers):
+	def __init__(self, data, telegram, tickers, low, high):
 		self.data = data
 		self.telegram = telegram
 		self.tickers = tickers
 		self.start()
 
 	def start(self):
+		pass
+
+
+	def send_last_RSI(self):
 		self.bars = self.data.get_historical_server(ticker=self.tickers,  limit='15')
-		print(self.bars['CLOSE'].values)
 		self.RSI = ta.RSI(self.bars['CLOSE'].values, timeperiod=14)
-		self.text = pd.Series(self.RSI).tail(1).to_json(orient='values')
-		self.telegram.send_text(self.text)
-		print(type(self.text))
+		if(self.RSI <= low):
+			self.text = pd.Series(self.RSI).tail(1).to_json(orient='values')
+			self.telegram.send_text(self.text)
+		elif(self.RSI >= high):
+			self.text = pd.Series(self.RSI).tail(1).to_json(orient='values')
+			self.telegram.send_text(self.text)
+
+
 
 
 token = '482503768:AAGQufAjZF4zj9cnnqLcNxrgXzc1BUURNak'
