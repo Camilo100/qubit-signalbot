@@ -59,37 +59,38 @@ orden=rex.buy_limit('BTC-LTC',0.001, 500)
 #Devuelve un JSON con el resultado, aclaracion y un booleano
 ```
 
-Las ordenes en cada exchange piden distintos argumentos y no estan todas las funciones en ambos.Fix en proximo commit
+Las ordenes en cada exchange piden distintos argumentos y no estan todas las funciones en ambos.
+Fix en proximo commit.
  
 **Funciones:**
 
 1. **Finex:**
 
-⋅⋅* balances
-⋅⋅* trading_fees
-⋅⋅* withdrawal_fees
-⋅⋅* deposit_address
-⋅⋅* trade_hist
-⋅⋅* new_order
-⋅⋅* cancel_order 
-⋅⋅* cancel_all_orders
-⋅⋅* replace_order
-⋅⋅* order_status
-⋅⋅*active_orders
+* balances
+* trading_fees
+* withdrawal_fees
+* deposit_address
+* trade_hist
+* new_order
+* cancel_order 
+* cancel_all_orders
+* replace_order
+* order_status
+* active_orders
 
 2. **Bittrex:** 
-⋅⋅* buy_limit
-⋅⋅* sell_limit
-⋅⋅* cancel_order
-⋅⋅* open_orders
-⋅⋅* balances
-⋅⋅* balance_moneda 
-⋅⋅* deposit_address
-⋅⋅* withdraw
-⋅⋅* get_order
-⋅⋅* get_order_history
-⋅⋅*get_withdrawal_history
-⋅⋅*get_deposit_history
+* buy_limit
+* sell_limit
+* cancel_order
+* open_orders
+* balances
+* balance_moneda 
+* deposit_address
+* withdraw
+* get_order
+* get_order_history
+* get_withdrawal_history
+* get_deposit_history
 
 
 
