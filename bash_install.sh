@@ -59,6 +59,22 @@ pip install scipy
 pip install -U scikit-learn 
 pip install sklearn-pandas #https://github.com/scikit-learn-contrib/sklearn-pandas
 pip install -U statsmodels
+
+
+
+#Sin resultados:
+Download ta-lib-0.4.0-src.tar.gz and:
+
+$ untar and cd
+$ ./configure --prefix=/usr
+$ make
+$ sudo make install
+
+sudo pip install -U TA-Lib
+sudo apt-get install cython
+sudo pip install -U setuptools
+
+
 #pip install bitex   #https://github.com/nlsdfnbch/bitex
 
 

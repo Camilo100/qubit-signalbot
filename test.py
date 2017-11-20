@@ -4,6 +4,10 @@
 import data
 #import financial_analysis
 import telegram_bot as tel
+import talib
+
+
+"""
 
 tickers = ["BTC-NEO", "BTC-OMG", "BTC-ADX", "BTC-ARK"]
 token = '482503768:AAGQufAjZF4zj9cnnqLcNxrgXzc1BUURNak'
@@ -25,7 +29,7 @@ bot.send_photo(photo_addrs) # lo envia
 
 
 
-""""
+"""
 for i in tickers:
  	all_data.loc[i]['C'].plot(grid=True, legend= True, title=i)
  	photo_addrs = i +'.png'
@@ -43,7 +47,7 @@ all_data['C'].plot(grid=True, , title="BTC-ADX", x=['Date'])
 
 
 
-
+"""
 
 #descr = all_data.describe()
 

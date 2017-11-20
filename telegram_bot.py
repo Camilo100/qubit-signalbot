@@ -32,7 +32,7 @@ class telegram_bot(object):
 		bot.send_message(chat_id=update.message.chat_id, text='No se responder, sorry bro')
 
 	def send_text(self, data):
-		self.updater.bot.send_message(chat_id= self.id, text=data, parse_mode='html') #mi id
+		self.updater.bot.send_message(chat_id= self.id, text=data) #mi id
 
 	def send_photo(self, addrs):
 		self.updater.bot.send_photo(chat_id=self.id, photo=open(addrs, 'rb')) #mi id

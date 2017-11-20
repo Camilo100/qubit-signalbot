@@ -14,7 +14,7 @@ import urllib2
 #import SciPy
 import numpy as np
 from abc import ABCMeta, abstractmethod
-
+import os
 """
 Dos opciones
 
@@ -90,9 +90,9 @@ class bitfinex_data(DataHandler):
 	def __init__(self):
 		pass
 
-	def get_historical_server(self, ticker, timeframe):
+	def get_historical_server(self, ticker, timeframe='1D', limit='1000'):
 		self.url="https://api.bitfinex.com/v2/candles/trade:"
-		self.url_full= self.url+timeframe+":"+ticker+"/hist?&limit=1000"
+		self.url_full= self.url+timeframe+":"+ticker+"/hist?&limit="+limit
 		#print(self.url_full)
 		self.raw_json = requests.get(self.url_full).text
 		self.json_dict = json.loads(self.raw_json)
@@ -102,11 +102,10 @@ class bitfinex_data(DataHandler):
 		return(self.result)
 
 
-	def get_lastest(self, ticker):
-		self.update_rest(ticker)
-
+	def get_lastest(self, ticker, N=1):
+		#self.update_rest(ticker)
 		#dar lastest csv
-
+		pass
 
 	def update_rest(self, ticker):
 		self.url="https://api.bitfinex.com/v2/ticker/"
@@ -119,16 +118,29 @@ class bitfinex_data(DataHandler):
 		#aNadir al csv
 
 
-tickers = ["tOMGUSD", "tOMGBTC", "tETHUSD", "tETHBTC"]
+tickers = ["tBTCUSD", "tLTCUSD","tLTCBTC", "tETCUSD",  "tETCBTC", "tZECUSD","tZECBTC",
+"tXMRUSD", "tXMRBTC", "tIOTAUSD", "tIOTABTC", "tDASHBTC", "tOMGUSD", "tOMGBTC", "tBCHUSD",
+"tBCHBTC", "tNEOUSD", "tNEOBTC", "tETHUSD", "tETHBTC", "tQTUMUSD", "tQTUMBTC"]
+
+time_invertal = ["1m", '15m', '1h', '3h', '1D']
 bitfinex = bitfinex_data()
-#BTCUSD = bitfinex.get_historical_server("tBTCUSD", "3h")
+BTCUSD = bitfinex.get_historical_server("tBTCUSD", "15m")
+
+
+
+path="/home/camilo/qubit-signalbot/Historical Prices/BITFINEX/15M/"
+
+
+
+BTCUSD.to_csv(path+'tBTCUSD BITFINEX 15m.csv')
 #print(BTCUSD.describe())
 #print(BTCUSD.head())
 #print(BTCUSD.tail())
-
+"""
 #bitfinex.get_lastest("tBTCUSD")
-for i in tickers:
-	t = bitfinex.get_historical_server(i, "1h")
-	name = i + ' BITFINEX 1H'
-	t.to_csv(name)
-
+for j in time_invertal:
+	for i in tickers:
+		t = bitfinex.get_historical_server(i, j)
+		name = i + ' BITFINEX ' + j
+		t.to_csv(name)
+"""
