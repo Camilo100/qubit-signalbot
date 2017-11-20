@@ -6,6 +6,7 @@ import hmac
 import os
 import time 
 import talib
+import calendar
 
 pares = [
         'tBTCUSD',
@@ -23,26 +24,15 @@ pares = [
 class BitfinexClient(object):
 
     BASE_URL = 'https://api.bitfinex.com/'
-    KEY='0GPBbZIKwT3Lj9ZZOWbbE39ikVFDVx1yPThlzOX1jsl'
-    SECRET= b'cDNVX0Cpslmb2173hv8v06Jio5Lrqfo1EeQ2tXXmf4U'
-
+    #READ KEY='0GPBbZIKwT3Lj9ZZOWbbE39ikVFDVx1yPThlzOX1jsl'
+    #READ SECRET= b'cDNVX0Cpslmb2173hv8v06Jio5Lrqfo1EeQ2tXXmf4U'
+    KEY='C270gyWZWOyx4i4fskB4fFBMfWGFpKL89Zat2mJqhiY' 
+    SECRET= 'UYU0KYWWbGgdVWBaBYLrbWAFqNOpYlQxKX70vAcopJT'
     G_payload = {
            'request':'',
            'nonce':0,
-           #'options':{}
-           #'method':'bitcoin',
-           #'wallet_name':'exchange'
             }   
-# payload = { 
-#            'request':'/v1/order/new',
-#            'nonce':time.time(),
-#            'options' : {'symbol':'btcusd',
-#             'amount':'100.00000000',
-#             'price':'1.00',
-#             'exchange':'bitfinex',
-#             'side':'buy',
-#             'type':'limit'}
-#            }
+
 
     def _nonce(self):
        
@@ -65,6 +55,7 @@ class BitfinexClient(object):
             }
 
     def req(self, path):
+ 
         nonce= self._nonce()
         self.G_payload['nonce'] = nonce
         self.G_payload['request']=path
@@ -73,8 +64,8 @@ class BitfinexClient(object):
 
         headers = self._headers(path, nonce, payload_json)
         url = self.BASE_URL + path
-        print(url)
-        print(payload_json)
+        #print(url)
+        #print(payload_json)
         #print(headers)
         resp = requests.post(url, data={}, headers=headers)
 
@@ -129,13 +120,16 @@ class BitfinexClient(object):
             print (" respuesta "+str(response.content))
             return ''
 
-    def trade_hist(self):
+    def trade_hist(self, par, tiempo):
+        # limite de 50k trades, sin limite https://api.bitfinex.com/v2/trades/tBTCUSD/hist?start=1453322537000&end=1453408937000
+        self.G_payload['symbol']=par
+        tiempo= time.mktime(time.strptime(tiempo, "%d.%m.%Y %H:%M:%S"))
+        self.G_payload['timestamp']= str(tiempo)
+        self.G_payload['until']=str(time.time())
+        self.G_payload['limit_trades']=50
+        self.G_payload['reverse']=0
         response = self.req("/v1/mytrades")
-        G_payload['symbol']='tBTCUSD'
-        G_payload['timestamp']='10/05/2017'
-        G_payload['until']='11/17/2017'
-        G_payload['limit_trades']=50
-        G_payload['reverse']=0
+
         if response.status_code == 200:
           return response.json()
         else:
@@ -143,20 +137,67 @@ class BitfinexClient(object):
             print (" respuesta "+str(response.content))
             return ''
     
-    def new_order(self):
+    def new_order(self, ticker, monto, precio, side, tipo):
+        self.G_payload['symbol']=ticker
+        self.G_payload['amount']=monto
+        self.G_payload['price']=precio 
+        self.G_payload['exchange']='bitfinex'
+        self.G_payload['side']=side 
+        self.G_payload['type']=tipo
+        response= self.req("/v1/order/new")
+        if response.status_code == 200:
+          return response.json()
+        else:
+            print ("Codigo "+str(response.status_code))
+            print (" respuesta "+str(response.content))
+            return ''
         return ''
-     
+    
+    def cancel_all_orders(self):
+
+        response=self.req("/v1/order/cancel/all")
+
+        if response.status_code == 200:
+          return response.json()
+        else:
+            print ("Codigo "+str(response.status_code))
+            print (" respuesta "+str(response.content))
+            return ''
+        return ''
 
     
+    def replace_order(self,id,ticker, monto, precio, side, tipo):
+
+        self.G_payload['order_id']=id
+        self.G_payload['symbol']=ticker
+        self.G_payload['amount']=monto
+        self.G_payload['price']=precio 
+        self.G_payload['exchange']='bitfinex'
+        self.G_payload['side']=side 
+        self.G_payload['type']=tipo
+        response= self.req("/v1/order/cancer/replace")
+        if response.status_code == 200:
+          return response.json()
+        else:
+            print ("Codigo "+str(response.status_code))
+            print (" respuesta "+str(response.content))
+            return ''
+        return ''
+
+    def order_status(self,id):
+        self.G_payload['order_id']=id
+        response=self.req("/v1/order/status")
+        if response.status_code == 200:
+          return response.json()
+        else:
+            print ("Codigo "+str(response.status_code))
+            print (" respuesta "+str(response.content))
+            return ''
+        return ''               
 
 client = BitfinexClient()
-print client.balances()
+print client.withdrawal_fees()
 print client.trading_fees()
-#print client.trade_hist()
 print client.deposit_address()
-'''
-print client.active_orders()
-print client.wallets()
-print client.order_hist()
-
-'''
+print client.new_order('XMRUSD',str(0.01),str(1),'buy','exchange market')
+print client.trade_hist('XMRBTC',"10.8.2017 11:05:02")
