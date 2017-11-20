@@ -16,6 +16,14 @@ bot.send_photo(photo_addrs)
 
 ```
 
+### Como hacer analisis financieros sobre los datos (ALPHA)
+
+La clase financial_analisys posee diferentes metodos para realizar analisis financieros sobre datos. Al inicializar la clase debemos darle un objeto pandas con la columna CLOSE. Los diferentes metedos que podemos usar son:
+
+
++daily_percentage_change(): devuelve un numpy array con los cambios diarios. (ESTO DEBE SER MEJORADOS PARA CALCULAR PARA CUALQUIER NUMERO DE DIAS)
++daily_log_returns(): devuelve un numypy array con los retornos logaritmicos.
++plot_daily_pct_change(): 
 
 ### Como usar metodo rest publico de bitfinex
 
@@ -38,7 +46,7 @@ BTCUSD = bitfinex.get_lastest(ticker=ticker, timeframe="15m")
 
 
 ### Como usar RSI strategy (BETA)
-Esta estrategia (por el momento) envia señales usando el telegram bot, cuando el RSI de un ticker (o una lista de ellos) llega a un nivel deseado. 
+Esta estrategia (por el momento) envia señales usando el telegram bot, cuando el RSI de un ticker (o una lista de ellos) llega a un nivel deseado. Hay que inicializar el data handler y el telegram bot. 
 
 ```python
 
@@ -51,6 +59,11 @@ RSI = simple_RSI(bitfinex, bot, tickers, 15, 75)
 
 ```
 
+### Como hacer backtest (ALPHA)
+
+### Como ejecutar en tiempo real (ALPHA)
 
 
-#####(https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+
+
+######(https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)

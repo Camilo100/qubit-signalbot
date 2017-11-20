@@ -24,6 +24,7 @@ class simple_RSI(object):
 
 
 	def send_last_RSI(self):
+		#while True:
 		self.bars = self.data.get_historical_server(ticker=self.tickers,  limit='15')
 		self.RSI = ta.RSI(self.bars['CLOSE'].values, timeperiod=14)
 		if(self.RSI <= low):

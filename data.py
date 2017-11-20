@@ -102,7 +102,20 @@ class bitfinex_data(DataHandler):
 		return(self.result)
 
 
-	def get_lastest(self, ticker, N=1):
+	def get_lastest(self, ticker, timeframe):
+		self.url="https://api.bitfinex.com/v2/candles/trade:"
+		self.url_full= self.url+timeframe+":"+ticker+"/last"
+		#print(self.url_full)
+		self.raw_json = requests.get(self.url_full).text
+		self.json_dict = json.loads(self.raw_json)
+		self.result = pd.DataFrame(self.json_dict, columns=['MTS','OPEN','CLOSE', 'HIGH', 'LOW', 'VOLUME' ])
+		self.result.set_index('MTS', inplace=True)
+		self.result.index = pd.to_datetime(self.result.index, unit='ms')
+		return(self.result)
+
+
+
+
 		#self.update_rest(ticker)
 		#dar lastest csv
 		pass
