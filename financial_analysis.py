@@ -33,13 +33,16 @@ class financial_analisys(object):
 		self.daily_pct_change.fillna(0, inplace=True) # Replace NA values with 0
 		return (self.daily_pct_change)
 
+	def plot_daily_pct_change(self):
+		self.daily_percentage_change().hist(bins=50)
+		plt.show()
+
+
 	def daily_log_returns(self):
 		self.daily_log_returns = np.log(self.daily_percentage_change()+1)
 		return (self.daily_log_returns)
 
-	def plot_daily_pct_change(self):
-		self.daily_percentage_change().hist(bins=50)
-		plt.show()
+
 
 	def cum_daily_return(self):
 		# Calculate the cumulative daily returns
