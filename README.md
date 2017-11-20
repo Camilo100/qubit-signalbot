@@ -21,9 +21,9 @@ bot.send_photo(photo_addrs)
 La clase financial_analisys posee diferentes metodos para realizar analisis financieros sobre datos. Al inicializar la clase debemos darle un objeto pandas con la columna CLOSE. Los diferentes metedos que podemos usar son:
 
 
-+daily_percentage_change(): devuelve un numpy array con los cambios diarios. (ESTO DEBE SER MEJORADOS PARA CALCULAR PARA CUALQUIER NUMERO DE DIAS)
-+daily_log_returns(): devuelve un numypy array con los retornos logaritmicos.
-+plot_daily_pct_change(): 
++ daily_percentage_change(): devuelve un numpy array con los cambios diarios. (ESTO DEBE SER MEJORADOS PARA CALCULAR PARA CUALQUIER NUMERO DE DIAS)
++ daily_log_returns(): devuelve un numypy array con los retornos logaritmicos.
++ plot_daily_pct_change(): 
 
 ### Como usar metodo rest publico de bitfinex
 
@@ -66,4 +66,4 @@ RSI = simple_RSI(bitfinex, bot, tickers, 15, 75)
 
 
 
-######(https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+###### Documentacion para este formato: (https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
