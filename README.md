@@ -42,7 +42,7 @@ RSI = simple_RSI(bitfinex, bot, tickers, 15, 75)
 
 ```
 
-##Portfolio
+## Portfolio
 ### Como usar el bot de Telegram
 Falta integrar con el execution handler. 
 
