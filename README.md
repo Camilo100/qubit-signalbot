@@ -1,29 +1,10 @@
 # Qubit-signalbot
 
-### Como usar el bot de Telegram
-
-```python
-import telegram_bot
-
-token = '482503768:AAGQufAjZF4zj9cnnqLcNxrgXzc1BUURNak'
-chat_id = '413830610' 
-"""
-crea el bot de telegram con tu token y chat id 
-"""
-bot = tel.telegram_bot(token, chat_id)
-bot.send_text('Hola')
-bot.send_photo(photo_addrs)
-
-```
-
-### Como hacer analisis financieros sobre los datos (ALPHA)
-
-La clase financial_analisys posee diferentes metodos para realizar analisis financieros sobre datos. Al inicializar la clase debemos darle un objeto pandas con la columna CLOSE. Los diferentes metedos que podemos usar son:
 
 
-+ daily_percentage_change(): devuelve un numpy array con los cambios diarios. (ESTO DEBE SER MEJORADOS PARA CALCULAR PARA CUALQUIER NUMERO DE DIAS)
-+ daily_log_returns(): devuelve un numypy array con los retornos logaritmicos.
-+ plot_daily_pct_change(): 
+
+##DataHandler
+The DataHandler is an abstract base class (ABC) that presents an interface for handling both historical or live market data. This provides significant flexibility as the Strategy and Portfolio modules can thus be reused between both approaches. 
 
 ### Como usar metodo rest publico de bitfinex
 
@@ -43,6 +24,53 @@ Ultima vela
 BTCUSD = bitfinex.get_lastest(ticker=ticker, timeframe="15m")
 
 ```
+
+##Strategy
+The Strategy is also an ABC that presents an interface for taking market data and generating corresponding SignalEvents, which are ultimately utilised by the Portfolio object. A SignalEvent contains a ticker symbol, a direction (LONG or SHORT) and a timestamp.
+
+### Como usar RSI strategy (BETA)
+Esta estrategia (por el momento) envia señales usando el telegram bot, cuando el RSI de un ticker (o una lista de ellos) llega a un nivel deseado. Hay que inicializar el data handler y el telegram bot. 
+
+```python
+
+token = '482503768:AAGQufAjZF4zj9cnnqLcNxrgXzc1BUURNak'
+chat_id = '413830610'
+bot = tel.telegram_bot(token, chat_id) #crea el bot de telegram con tu token
+bitfinex = data.bitfinex_data()
+tickers = 'tBTCUSD'
+RSI = simple_RSI(bitfinex, bot, tickers, 15, 75)
+
+```
+
+##Portfolio
+### Como usar el bot de Telegram
+Falta integrar con el execution handler. 
+
+```python
+import telegram_bot
+
+token = '482503768:AAGQufAjZF4zj9cnnqLcNxrgXzc1BUURNak'
+chat_id = '413830610' 
+"""
+crea el bot de telegram con tu token y chat id 
+"""
+bot = tel.telegram_bot(token, chat_id)
+bot.send_text('Hola')
+bot.send_photo(photo_addrs)
+
+```
+##Financial Analisys
+### Como hacer analisis financieros sobre los datos (ALPHA)
+
+La clase financial_analisys posee diferentes metodos para realizar analisis financieros sobre datos. Al inicializar la clase debemos darle un objeto pandas con la columna CLOSE. Los diferentes metedos que podemos usar son:
+
+
++ daily_percentage_change(): devuelve un numpy array con los cambios diarios. (ESTO DEBE SER MEJORADOS PARA CALCULAR PARA CUALQUIER NUMERO DE DIAS)
++ daily_log_returns(): devuelve un numypy array con los retornos logaritmicos.
++ plot_daily_pct_change(): 
+
+##ExecutionHandler
+The ExecutionHandler simulates a connection to a brokerage. The job of the handler is to take OrderEvents from the Queue and execute them, either via a simulated approach or an actual connection to a liver brokerage. Once orders are executed the handler creates FillEvents, which describe what was actually transacted, including fees, commission and slippage (if modelled).
 
 ### Como usar ExecutionHandler
 
@@ -94,26 +122,17 @@ Fix en proximo commit.
 
 
 
-
-### Como usar RSI strategy (BETA)
-Esta estrategia (por el momento) envia señales usando el telegram bot, cuando el RSI de un ticker (o una lista de ellos) llega a un nivel deseado. Hay que inicializar el data handler y el telegram bot. 
-
-```python
-
-token = '482503768:AAGQufAjZF4zj9cnnqLcNxrgXzc1BUURNak'
-chat_id = '413830610'
-bot = tel.telegram_bot(token, chat_id) #crea el bot de telegram con tu token
-bitfinex = data.bitfinex_data()
-tickers = 'tBTCUSD'
-RSI = simple_RSI(bitfinex, bot, tickers, 15, 75)
-
-```
-
+##Backtest
 ### Como hacer backtest (ALPHA)
 
+##Live
 ### Como ejecutar en tiempo real (ALPHA)
 
 
 
 
-###### Documentacion para este formato: (https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+## Documentacion
+
++ Formateo del readme: https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
++ Tutorial basico: https://www.datacamp.com/community/tutorials/finance-python-trading#financialanalyses
++ Tutorial avanzado: https://www.quantstart.com/articles/Event-Driven-Backtesting-with-Python-Part-I
