@@ -3,7 +3,7 @@
 
 
 
-##DataHandler
+## DataHandler
 The DataHandler is an abstract base class (ABC) that presents an interface for handling both historical or live market data. This provides significant flexibility as the Strategy and Portfolio modules can thus be reused between both approaches. 
 
 ### Como usar metodo rest publico de bitfinex
@@ -25,7 +25,7 @@ BTCUSD = bitfinex.get_lastest(ticker=ticker, timeframe="15m")
 
 ```
 
-##Strategy
+## Strategy
 The Strategy is also an ABC that presents an interface for taking market data and generating corresponding SignalEvents, which are ultimately utilised by the Portfolio object. A SignalEvent contains a ticker symbol, a direction (LONG or SHORT) and a timestamp.
 
 ### Como usar RSI strategy (BETA)
@@ -59,7 +59,8 @@ bot.send_text('Hola')
 bot.send_photo(photo_addrs)
 
 ```
-##Financial Analisys
+
+## Financial Analisys
 ### Como hacer analisis financieros sobre los datos (ALPHA)
 
 La clase financial_analisys posee diferentes metodos para realizar analisis financieros sobre datos. Al inicializar la clase debemos darle un objeto pandas con la columna CLOSE. Los diferentes metedos que podemos usar son:
@@ -69,7 +70,7 @@ La clase financial_analisys posee diferentes metodos para realizar analisis fina
 + daily_log_returns(): devuelve un numypy array con los retornos logaritmicos.
 + plot_daily_pct_change(): 
 
-##ExecutionHandler
+## ExecutionHandler
 The ExecutionHandler simulates a connection to a brokerage. The job of the handler is to take OrderEvents from the Queue and execute them, either via a simulated approach or an actual connection to a liver brokerage. Once orders are executed the handler creates FillEvents, which describe what was actually transacted, including fees, commission and slippage (if modelled).
 
 ### Como usar ExecutionHandler
@@ -122,10 +123,10 @@ Fix en proximo commit.
 
 
 
-##Backtest
+## Backtest
 ### Como hacer backtest (ALPHA)
 
-##Live
+## Live
 ### Como ejecutar en tiempo real (ALPHA)
 
 
